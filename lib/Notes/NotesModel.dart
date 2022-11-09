@@ -1,8 +1,10 @@
+import 'package:flutte_book/BaseModel.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 NotesModel notesModel = NotesModel();
 
 class Note {
+  int id;
   String title;
   String content;
   String color;
@@ -13,23 +15,15 @@ class Note {
   String toString() => "{title=$title, content=$content, color=$color }";
 }
 
-class NotesModel extends Model {
+class NotesModel extends BaseModel<Note> {
 
-  List<Note> noteList = [];
-  Note noteBeingEdited;
   String color;
-  var _stackIndex = 0;
-
-  int get stackIndex => _stackIndex;
 
   void setColor(String color) {
     this.color = color;
     notifyListeners();
   }
 
-  void setStackIndex(int i) {
-    _stackIndex = stackIndex;
-    notifyListeners();
-  }
+
 }
 

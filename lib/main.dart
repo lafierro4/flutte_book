@@ -1,4 +1,5 @@
 import 'package:flutte_book/Notes/Notes.dart';
+import 'package:flutte_book/Tasks/Tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -101,12 +102,12 @@ class FlutterBook extends StatelessWidget {
                                 text: tab['name'])).toList()
                     )
                 ),
-                body:  const TabBarView(
+                body: TabBarView(
                   children: <Widget> [
-                    _Dummy('Appointments'),
-                    _Dummy('Contents'),
+                    const _Dummy('Appointments'),
+                    const _Dummy('Contents'),
                     Notes(),
-                    _Dummy('Tasks'),
+                    Tasks(),
     ]
             )
         )

@@ -1,3 +1,5 @@
+
+import 'package:flutte_book/Notes/NotesDBWorker.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'NotesModel.dart';
@@ -10,10 +12,10 @@ class NotesEntry extends StatelessWidget {
 
   NotesEntry({Key key}) : super(key: key) {
     _titleEditingController.addListener(() {
-      notesModel.noteBeingEdited.title = _titleEditingController.text;
+      notesModel.entryBeingEdited.title = _titleEditingController.text;
     });
     _contentEditingController.addListener(() {
-      notesModel.noteBeingEdited.content = _contentEditingController.text;
+      notesModel.entryBeingEdited.content = _contentEditingController.text;
     });
   }
 
@@ -21,8 +23,8 @@ class NotesEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<NotesModel>(
         builder: (BuildContext context, Widget child, NotesModel model) {
-      _titleEditingController.text = model.noteBeingEdited?.title;
-      _contentEditingController.text = model.noteBeingEdited?.content;
+      _titleEditingController.text = model.entryBeingEdited?.title;
+      _contentEditingController.text = model.entryBeingEdited?.content;
       return Scaffold(
           bottomNavigationBar: Padding(
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -70,27 +72,27 @@ class NotesEntry extends StatelessWidget {
 
   ListTile _buildColorListTile(BuildContext context) {
     const colors = ['red', 'green', 'blue', 'yellow', 'grey', 'purple'];
+    print("colors is happening");
     return ListTile(
         leading: const Icon(Icons.color_lens),
-        title: Row(
-            children: colors.expand((c) => [_buildColorBox(context, c), const Spacer()])
-                .toList()
-              ..removeLast()));
+        title: Row(children: colors.expand((c) => [_buildColorBox(context, c),
+          const Spacer()]).toList()..removeLast()));
   }
 
   GestureDetector _buildColorBox(BuildContext context, String color) {
     final Color colorValue = _toColor(color);
+    print(color);
     return GestureDetector(
         child: Container(
             decoration: ShapeDecoration(
                 shape: Border.all(width: 16, color: colorValue) +
-                    Border.all(
-                        width: 4,
-                        color: notesModel.color == color
-                            ? colorValue
-                            : Theme.of(context).canvasColor))),
+                    Border.all( width: 4,
+                        color: notesModel.color == color ? colorValue
+                            : Theme.of(context).canvasColor))
+        ),
         onTap: () {
-          notesModel.noteBeingEdited.color = color;
+          notesModel.entryBeingEdited.color = color;
+          print(color);
           notesModel.setColor(color);
         });
   }
@@ -114,13 +116,16 @@ class NotesEntry extends StatelessWidget {
     ]);
   }
 
-  void _save(BuildContext context, NotesModel model) {
+  void _save(BuildContext context, NotesModel model) async  {
     if (!_formKey.currentState.validate()) {
       return;
     }
-    if (!model.noteList.contains(model.noteBeingEdited)) {
-      model.noteList.add(model.noteBeingEdited);
+    if(model.entryBeingEdited.id == null){
+      await NotesDBWorker.db.create(notesModel.entryBeingEdited);
+    } else {
+      await NotesDBWorker.db.update(notesModel.entryBeingEdited);
     }
+    notesModel.loadData(NotesDBWorker.db);
     model.setStackIndex(0);
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       backgroundColor: Colors.green,
@@ -129,21 +134,14 @@ class NotesEntry extends StatelessWidget {
     ));
   }
 }
-Color _toColor(String color) {
+MaterialColor _toColor(String color) {
   switch(color){
-    case 'red':
-      return const Color(0x00fc2803);
-    case 'green':
-      return const Color(0x0008bd47);
-    case 'blue':
-      return const Color(0x001212cc);
-    case 'yellow':
-      return const Color(0x00cce320);
-    case 'purple':
-      return const Color(0x00b41ae8);
-    case 'gray':
-      return const Color(0x006b6868);
-    default:
-      return const Color(0xffffffff);
+    case 'red': return Colors.red;
+    case 'green': return Colors.green;
+    case 'blue': return Colors.blue;
+    case 'yellow': return Colors.yellow;
+    case 'purple': return Colors.purple;
+    case 'grey': return Colors.grey;
+    default: return Colors.white;
   }
 }

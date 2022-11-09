@@ -1,3 +1,4 @@
+import 'package:flutte_book/Notes/NotesDBWorker.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'NotesEntry.dart';
@@ -5,7 +6,9 @@ import 'NotesModel.dart' show NotesModel, notesModel;
 import 'NotesList.dart';
 
 class Notes extends StatelessWidget {
-  const Notes({Key key}) : super(key: key);
+  Notes({Key key}) : super(key: key){
+    notesModel.loadData(NotesDBWorker.db);
+  }
   @override
   Widget build(BuildContext context) {
     return ScopedModel<NotesModel>(
