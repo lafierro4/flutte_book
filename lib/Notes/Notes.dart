@@ -6,7 +6,7 @@ import 'NotesModel.dart' show NotesModel, notesModel;
 import 'NotesList.dart';
 
 class Notes extends StatelessWidget {
-  Notes({Key key}) : super(key: key){
+  Notes({Key key}) :  super(key: key){
     notesModel.loadData(NotesDBWorker.db);
   }
   @override

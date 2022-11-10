@@ -82,7 +82,10 @@ _deleteNote(BuildContext context, NotesModel model, Note note) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         backgroundColor: Colors.red,
                         duration: Duration(seconds: 2),
-                        content: Text("Note deleted")));
+                        content: Text("Note deleted")
+                    )
+                    );
+                    print('deleted $note');
                     model.loadData(NotesDBWorker.db);
                   })
             ]);

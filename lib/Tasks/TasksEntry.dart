@@ -1,10 +1,8 @@
-import 'package:flutte_book/Notes/NotesDBWorker.dart';
 import 'package:flutte_book/Tasks/TasksDBWorker.dart';
 import 'package:flutte_book/Tasks/TasksModel.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../utils.dart';
-import 'TasksModel.dart';
 
 class TasksEntry extends StatelessWidget {
   final TextEditingController _contentEditingController =
@@ -96,7 +94,7 @@ class TasksEntry extends StatelessWidget {
       await TasksDBWorker.db.update(tasksModel.entryBeingEdited);
       print('updated');
     }
-    tasksModel.loadData(NotesDBWorker.db);
+    tasksModel.loadData(TasksDBWorker.db);
     model.setStackIndex(0);
     print("_saved");
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

@@ -81,7 +81,6 @@ class NotesEntry extends StatelessWidget {
 
   GestureDetector _buildColorBox(BuildContext context, String color) {
     final Color colorValue = _toColor(color);
-    print(color);
     return GestureDetector(
         child: Container(
             decoration: ShapeDecoration(
@@ -92,7 +91,6 @@ class NotesEntry extends StatelessWidget {
         ),
         onTap: () {
           notesModel.entryBeingEdited.color = color;
-          print(color);
           notesModel.setColor(color);
         });
   }
