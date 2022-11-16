@@ -5,18 +5,27 @@ import 'package:sqflite/sqflite.dart';
 import 'TasksModel.dart';
 
 abstract class TasksDBWorker {
-  static final TasksDBWorker db = _MemoryTasksDBWorker._();
+  static final TasksDBWorker db = _SqfliteTasksDBWorker._();
   Future<int> create(Task task);
   Future<void> update(Task task);
   Future<void> delete(int id);
   Future<Task> get(int id);
   Future<List<Task>> getAll();
+}
+
+class _SqfliteTasksDBWorker extends TasksDBWorker {
   static const String DB_NAME = 'task.db';
   static const String TBL_NAME = 'tasks';
   static const String KEY_ID = 'id';
   static const String KEY_DESCRIPTION = 'description';
   static const String KEY_DUE_DATE = 'dueDate';
   static const String KEY_COMPLETED = 'completed';
+  var _tasks = [];
+  var _nextId = 1;
+  Database _db;
+  _SqfliteTasksDBWorker._();
+  Future<Database> get database async =>
+      _db ??= await _init();
 
   Future<Database> _init() async {
     return await openDatabase(DB_NAME,
@@ -33,13 +42,6 @@ abstract class TasksDBWorker {
         }
     );
   }
-}
-
-class _MemoryTasksDBWorker extends TasksDBWorker {
-  var _tasks = [];
-  var _nextId = 1;
-
-  _MemoryTasksDBWorker._();
 
   @override
   Future<int> create(Task task) async {

@@ -4,6 +4,8 @@ import 'package:flutte_book/Appointments/AppointmentsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import 'AppointmentsEntry.dart';
+
 class Appointments extends StatelessWidget {
   Appointments({Key key}) :  super(key: key){
     appointmentsModel.loadData(AppointmentsDBWorker().db);

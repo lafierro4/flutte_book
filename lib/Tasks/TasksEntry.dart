@@ -89,14 +89,11 @@ class TasksEntry extends StatelessWidget {
     }
     if (model.entryBeingEdited.id == null) {
       await TasksDBWorker.db.create(tasksModel.entryBeingEdited);
-      print('created');
     } else {
       await TasksDBWorker.db.update(tasksModel.entryBeingEdited);
-      print('updated');
     }
     tasksModel.loadData(TasksDBWorker.db);
     model.setStackIndex(0);
-    print("_saved");
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       backgroundColor: Colors.green,
       duration: Duration(seconds: 2),

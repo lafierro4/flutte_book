@@ -2,6 +2,8 @@ import 'package:flutte_book/Notes/Notes.dart';
 import 'package:flutte_book/Tasks/Tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:path_provider/path_provider.dart';
+import 'Contacts/Avatar.dart';
 
 
 class ConfigModel extends Model {
@@ -64,8 +66,13 @@ class ScopedModelUpdater extends StatelessWidget {
   }
 }
 
-void main() {
-  runApp(const FlutterBook());
+void main() async{
+  startMeUp() async{
+    WidgetsFlutterBinding.ensureInitialized();
+    Avatar.docsDir = await getApplicationDocumentsDirectory();
+    runApp(const FlutterBook());
+  }
+  startMeUp();
 }
 
 class _Dummy extends StatelessWidget {

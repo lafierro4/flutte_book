@@ -17,7 +17,7 @@ class Tasks extends StatelessWidget {
             builder: (BuildContext context, Widget child, TasksModel model) {
               return IndexedStack(
                 index: model.stackIndex,
-                children: <Widget>[TasksList(), TasksEntry()],
+                children: <Widget>[const TasksList(), TasksEntry()],
               );
             }));
   }
