@@ -6,8 +6,7 @@ import 'NotesModel.dart';
 
 class NotesEntry extends StatelessWidget {
   final TextEditingController _titleEditingController = TextEditingController();
-  final TextEditingController _contentEditingController =
-      TextEditingController();
+  final TextEditingController _contentEditingController =  TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   NotesEntry({Key key}) : super(key: key) {

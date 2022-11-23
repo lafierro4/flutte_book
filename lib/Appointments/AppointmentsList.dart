@@ -88,7 +88,7 @@ class AppointmentsList extends StatelessWidget {
                     return Container(height: 0);
                   }
                   return Slidable(
-                      endActionPane: onPressed(ctx) => _deleteAppointment(context,model ,app),
+                     // endActionPane: ActionPane
                       child: Container(
                           margin: const EdgeInsets.only(bottom: 8),
                           color: Colors.grey.shade300,

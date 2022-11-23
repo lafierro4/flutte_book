@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'Contacts/Avatar.dart';
+import 'Contacts/Contacts.dart';
+import 'Drawings/DrawEntry.dart';
 
 
 class ConfigModel extends Model {
@@ -88,10 +90,11 @@ class _Dummy extends StatelessWidget {
 class FlutterBook extends StatelessWidget {
   const FlutterBook({Key key}) : super(key: key);
   static const _TABS = [
-    {'icon': Icons.date_range, 'name': 'Appointments', 'color': 'Colors.blue'},
-    {'icon': Icons.contacts, 'name': 'Contacts', 'color': 'Colors.red'},
-    {'icon': Icons.note, 'name': 'Notes', 'color': 'Colors.green'},
-    {'icon': Icons.assignment_turned_in,'name': 'Tasks','color': 'Colors.purple'},
+    {'icon': Icons.date_range, 'name': 'Appointments',},
+    {'icon': Icons.contacts, 'name': 'Contacts',},
+    {'icon': Icons.note, 'name': 'Notes',},
+    {'icon': Icons.assignment_turned_in,'name': 'Tasks',},
+    {'icon': Icons.draw, 'name':'Drawings'}
   ];
   @override
   Widget build(BuildContext context) {
@@ -112,9 +115,10 @@ class FlutterBook extends StatelessWidget {
                 body: TabBarView(
                   children: <Widget> [
                     const _Dummy('Appointments'),
-                    const _Dummy('Contents'),
+                    Contacts(),
                     Notes(),
                     Tasks(),
+                    const Draw(),
     ]
             )
         )
