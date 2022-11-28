@@ -31,7 +31,7 @@ class NotesList extends StatelessWidget {
                         child: Slidable(
                             endActionPane: ActionPane(
                               extentRatio: .25,
-                              motion: ScrollMotion(),
+                              motion: const ScrollMotion(),
                               children: <Widget>[
                                 SlidableAction(
                                   backgroundColor: Colors.red,
@@ -51,8 +51,7 @@ class NotesList extends StatelessWidget {
                                   subtitle: Text(note.content),
                                   onTap: () {
                                     model.entryBeingEdited = note;
-                                    model
-                                        .setColor(model.entryBeingEdited.color);
+                                    model.setColor(model.entryBeingEdited.color);
                                     model.setStackIndex(1);
                                   },
                                 )))));

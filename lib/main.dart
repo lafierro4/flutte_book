@@ -5,7 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'Contacts/Avatar.dart';
 import 'Contacts/Contacts.dart';
-import 'Drawings/DrawEntry.dart';
+import 'Drawings/Drawings.dart';
 
 
 class ConfigModel extends Model {
@@ -118,7 +118,7 @@ class FlutterBook extends StatelessWidget {
                     Contacts(),
                     Notes(),
                     Tasks(),
-                    const Draw(),
+                    Drawings(),
     ]
             )
         )

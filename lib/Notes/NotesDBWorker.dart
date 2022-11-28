@@ -53,7 +53,6 @@ class _SqfliteNotesDBWorker extends NotesDBWorker {
       "VALUES (?, ?, ?)",
           [note.title, note.content, note.color]
       );
-    print(note);
     return id;
   }
 
